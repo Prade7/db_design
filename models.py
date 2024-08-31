@@ -46,7 +46,6 @@ class MachineName(models.Model):
 class MachineDetails(models.Model):
     machine_name = models.ForeignKey(MachineName, on_delete=models.CASCADE, related_name='details')
     # ForeignKey establishes a many-to-one relationship with MachineName
-    # `related_name='details'` allows reverse lookup from MachineName to its details
 
     feedrate = models.FloatField(default=0.0)
     max_acceleration = models.FloatField(default=0.0)
@@ -70,11 +69,9 @@ class AxisType(models.Model):
 class Axis(models.Model):
     axis_type = models.ForeignKey(AxisType, on_delete=models.CASCADE, related_name='axes')
     # ForeignKey establishes a many-to-one relationship with AxisType
-    # `related_name='axes'` allows reverse lookup from AxisType to its axis instances
-
+   
     machine = models.ForeignKey(MachineDetails, on_delete=models.CASCADE, related_name='axes')
     # ForeignKey establishes a many-to-one relationship with MachineDetails
-    # `related_name='axes'` allows reverse lookup from MachineDetails to its associated axes
 
     actual_position = models.FloatField(default=0.0)  
     distance_to_go = models.FloatField(default=0.0)   
